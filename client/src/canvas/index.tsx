@@ -1,4 +1,4 @@
-const Canvas = () => {
-	return <div>Canvas</div>;
+const CanvasModel = () => {
+	return <div>CanvasModel</div>;
 };
-export default Canvas;
+export default CanvasModel;
