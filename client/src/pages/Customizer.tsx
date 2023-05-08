@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import state from '../store';
+import { downloadCanvasToImage, reader } from '../config/helpers';
 import { fadeAnimation, slideAnimation } from '../config/motion';
-import { EditorTabs, FilterTabs } from '../config/constants';
+import { DecalTypes, EditorTabs, FilterTabs } from '../config/constants';
 import {
 	AIPicker,
 	ColorPicker,
@@ -30,12 +31,53 @@ const Customizer = () => {
 			case 'colorpicker':
 				return <ColorPicker />;
 			case 'filepicker':
-				return <FilePicker />;
+				return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
 			case 'aipicker':
 				return <AIPicker />;
 			default:
 				return null;
 		}
+	};
+
+	const handleDecals = (type, result) => {
+		const decalType = DecalTypes[type];
+
+		state[decalType.stateProperty] = result;
+
+		if (!activeFilterTab[decalType.filterTab]) {
+			handleActiveFilterTab(decalType.filterTab);
+		}
+	};
+
+	const handleActiveFilterTab = (tabName) => {
+		switch (tabName) {
+			case 'logoShirt':
+				state.isLogoTexture = !activeFilterTab[tabName];
+				break;
+			case 'stylishShirt':
+				state.isFullTexture = !activeFilterTab[tabName];
+				break;
+			default:
+				state.isLogoTexture = true;
+				state.isFullTexture = false;
+				break;
+		}
+
+		// after setting the state, activeFilterTab is updated
+
+		setActiveFilterTab((prevState) => {
+			return {
+				...prevState,
+				[tabName]: !prevState[tabName],
+			};
+		});
+	};
+
+	const readFile = (type: string) => {
+		reader(file).then((result) => {
+			handleDecals(result, type);
+			setActiveEditorTab('');
+		});
 	};
 
 	return (
