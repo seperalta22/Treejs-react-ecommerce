@@ -1,5 +1,6 @@
 import { useSnapshot } from 'valtio';
 import state from '../store';
+import { getContrastingColor } from '../config/helpers';
 
 interface CustomButtonProps {
 	title: string;
@@ -20,13 +21,13 @@ const CustomButton = ({
 			case 'filled':
 				return {
 					backgroundColor: snap.color,
-					color: '#f2f2f2 ',
+					color: getContrastingColor(snap.color),
 				};
 			case 'outlined':
 				return {
-					backgroundColor: '#fff',
-					color: '#2563EB',
-					border: '1px solid #2563EB',
+					color: snap.color,
+					borderWidth: '1px',
+					borderColor: snap.color,
 				};
 			default:
 				return {
