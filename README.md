@@ -49,7 +49,7 @@
 
 # 📖 Treejs-react-ecommerce<a name="about-project"></a>
 
-Portfolio is a project with great potential.
+This project aims to help users create unique designs to create their own T-shirts, it allows users to upload their own images and see how they would look in a 3D model, they can also choose the exact color and also generate unique images from their ideas with AI assistance. 
 
 ## 🛠 Built With <a name="built-with"></a>
 
