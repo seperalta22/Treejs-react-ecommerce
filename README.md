@@ -56,7 +56,9 @@ This project aims to help users create unique designs to create their own T-shir
 ### Tech Stack <a name="tech-stack"></a>
 
 - React
+
 - Redux
+
 - Treejs
 
 <details>
